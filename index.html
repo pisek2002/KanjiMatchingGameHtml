@@ -3,50 +3,157 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
     <title>Kanji Matching Game</title>
+
     <style>
         body {
             font-family: Arial, sans-serif;
-            margin: 0; padding: 0;
+            margin: 0; 
+            padding: 0;
             background: url('https://wallpapercave.com/wp/wp2819466.jpg') no-repeat center center fixed;
             background-size: cover;
-            height: 100vh; display: flex; flex-direction: column;
-            align-items: center; justify-content: center; color: #fff;
+            height: 100vh; 
+            display: flex; 
+            flex-direction: column;
+            align-items: center; 
+            justify-content: center; 
+            color: #fff;
+            overflow-x: hidden;
         }
-        .title { font-size: 2.5rem; font-weight: bold; text-shadow: 2px 2px 5px #000; }
+        
+        .title {
+            font-size: 2.5rem; 
+            font-weight: bold; 
+            text-shadow: 2px 2px 5px #000;
+            text-align: center;
+        }
+        
         .kanji-row, .hiragana-row {
-            display: flex; flex-wrap: wrap; max-width: 800px; gap: 15px; justify-content: center;
-            margin-bottom: 20px;
+            display: flex; 
+            flex-wrap: wrap; 
+            max-width: 90%; 
+            gap: 10px; 
+            justify-content: center;
+            margin-bottom: 15px;
         }
+        
         .card {
-            width: 100px; height: 100px;
-            background: rgba(255, 255, 255, 0.9); border-radius: 8px;
-            display: flex; align-items: center; justify-content: center;
-            font-size: 1.2rem; cursor: pointer; transition: transform 0.3s, background 0.3s;
+            width: 80px; 
+            height: 80px;
+            background: rgba(255, 255, 255, 0.9); 
+            border-radius: 8px;
+            display: flex; 
+            align-items: center; 
+            justify-content: center;
+            font-size: 1rem; 
+            cursor: pointer; 
+            transition: transform 0.3s, background 0.3s;
             box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
             color: #333;
             text-align: center;
             font-weight: bold;
         }
-        .card:hover { transform: scale(1.1); background: rgba(255, 192, 203, 0.9); }
-        .matched { background: rgba(144, 238, 144, 0.9); }
-        .button { margin-top: 20px; padding: 10px 20px; background: #ff4500; color: #fff; border: none; border-radius: 5px; cursor: pointer; font-size: 1.2rem; }
-        .button:hover { background: #ff6347; }
+        
+        .card:hover {
+            transform: scale(1.1); 
+            background: rgba(255, 192, 203, 0.9);
+        }
+        
+        .matched {
+            background: rgba(144, 238, 144, 0.9);
+        }
+        
+        .button {
+            margin-top: 20px; 
+            padding: 10px 20px; 
+            background: #ff4500; 
+            color: #fff; 
+            border: none; 
+            border-radius: 5px; 
+            cursor: pointer; 
+            font-size: 1rem;
+        }
+        
+        .button:hover {
+            background: #ff6347;
+        }
+        
         .timer, .score {
-            position: absolute; font-size: 1.2rem; font-weight: bold; text-shadow: 1px 1px 2px #000;
+            position: absolute; 
+            font-size: 1rem; 
+            font-weight: bold; 
+            text-shadow: 1px 1px 2px #000;
         }
-        .timer { top: 10px; left: 10px; }
-        .score { top: 10px; right: 10px; }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        
+        .timer {
+            top: 10px; 
+            left: 10px;
         }
+        
+        .score {
+            top: 10px; 
+            right: 10px;
+        }
+        
         .message {
-            position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            background: rgba(0, 0, 0, 0.7); padding: 20px 30px; color: #fff; border-radius: 10px;
-            font-size: 1.5rem; animation: fadeIn 0.5s ease-in-out;
-            text-align: center; z-index: 1000;
+            position: fixed; 
+            top: 50%; 
+            left: 50%; 
+            transform: translate(-50%, -50%);
+            background: rgba(0, 0, 0, 0.7); 
+            padding: 20px 30px; 
+            color: #fff; 
+            border-radius: 10px;
+            font-size: 1.2rem; 
+            animation: fadeIn 0.5s ease-in-out;
+            text-align: center; 
+            z-index: 1000;
         }
+        
+        @keyframes fadeIn {
+            from {
+                opacity: 0; 
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1; 
+                transform: translateY(0);
+            }
+        }
+        
+        /* Media Queries for Responsive Design */
+        @media screen and (max-width: 768px) {
+            .title {
+                font-size: 2rem;
+            }
+            .card {
+                width: 70px;
+                height: 70px;
+                font-size: 0.9rem;
+            }
+            .button {
+                font-size: 0.9rem;
+                padding: 8px 15px;
+            }
+        }
+        
+        @media screen and (max-width: 480px) {
+            .title {
+                font-size: 1.5rem;
+            }
+            .card {
+                width: 60px;
+                height: 60px;
+                font-size: 0.8rem;
+            }
+            .button {
+                font-size: 0.8rem;
+                padding: 6px 10px;
+            }
+        }
+        
     </style>
 </head>
 <body>
@@ -214,7 +321,7 @@
             { kanji: "洗う", hiragana: "あらう", thai: "ล้าง" },
             { kanji: "開ける", hiragana: "あける", thai: "เปิด" },
             { kanji: "閉める", hiragana: "しめる", thai: "ปิด" },
-            { kanji: "消す", hiragana: "けす", thai: "ปิด (ไฟ/เครื่องใช้ไฟฟ้า)" },
+            { kanji: "消す", hiragana: "けす", thai: "ปิดไฟ/เครื่องใช้ไฟฟ้า" },
             { kanji: "切る", hiragana: "きる", thai: "ตัด" },
             { kanji: "置く", hiragana: "おく", thai: "วาง" },
             { kanji: "捨てる", hiragana: "すてる", thai: "ทิ้ง" },
@@ -239,8 +346,8 @@
             { kanji: "答える", hiragana: "こたえる", thai: "ตอบ" },
             { kanji: "入る", hiragana: "はいる", thai: "เข้า" },
             { kanji: "出る", hiragana: "でる", thai: "ออก" },
-            { kanji: "乗る", hiragana: "のる", thai: "ขึ้น (ยานพาหนะ)" },
-            { kanji: "降りる", hiragana: "おりる", thai: "ลง (ยานพาหนะ)" },
+            { kanji: "乗る", hiragana: "のる", thai: "ขึ้นยานพาหนะ" },
+            { kanji: "降りる", hiragana: "おりる", thai: "ลงยานพาหนะ" },
             { kanji: "買い物する", hiragana: "かいものする", thai: "ช้อปปิ้ง" },
             { kanji: "旅行する", hiragana: "りょこうする", thai: "ท่องเที่ยว" },
             { kanji: "電話する", hiragana: "でんわする", thai: "โทรศัพท์" },
@@ -250,9 +357,9 @@
             { kanji: "踊る", hiragana: "おどる", thai: "เต้น" },
             { kanji: "泳ぐ", hiragana: "およぐ", thai: "ว่ายน้ำ" },
             { kanji: "探す", hiragana: "さがす", thai: "ค้นหา" },
-            { kanji: "磨く", hiragana: "みがく", thai: "แปรง (ฟัน)" },
+            { kanji: "磨く", hiragana: "みがく", thai: "แปรงฟัน" },
             { kanji: "勧める", hiragana: "すすめる", thai: "แนะนำ" },
-            { kanji: "降る", hiragana: "ふる", thai: "ตก (ฝน/หิมะ)" },
+            { kanji: "降る", hiragana: "ふる", thai: "ตกฝน/หิมะ" },
             { kanji: "笑う", hiragana: "わらう", thai: "ยิ้ม/หัวเราะ" },
             { kanji: "泣く", hiragana: "なく", thai: "ร้องไห้" },
             { kanji: "運ぶ", hiragana: "はこぶ", thai: "ขนย้าย" },
@@ -295,7 +402,7 @@
             { kanji: "笑顔を作る", hiragana: "えがおをつくる", thai: "ยิ้ม" },
             { kanji: "引く", hiragana: "ひく", thai: "ดึง" },
             { kanji: "押す", hiragana: "おす", thai: "ผลัก/กด" },
-            { kanji: "閉じる", hiragana: "とじる", thai: "ปิด (หนังสือ/หน้าต่าง)" },
+            { kanji: "閉じる", hiragana: "とじる", thai: "ปิดหนังสือ/หน้าต่าง" },
             { kanji: "残す", hiragana: "のこす", thai: "เหลือไว้" },
             { kanji: "守る", hiragana: "まもる", thai: "ปกป้อง/รักษา" },
             { kanji: "感じ取る", hiragana: "かんじとる", thai: "สัมผัสได้" },
@@ -401,7 +508,7 @@
             { kanji: "焼く", hiragana: "やく", thai: "ย่าง/เผา" },
             { kanji: "寄る", hiragana: "よる", thai: "แวะ/เข้าใกล้" },
             { kanji: "譲る", hiragana: "ゆずる", thai: "ยกให้/โอนให้" },
-            { kanji: "止む", hiragana: "やむ", thai: "หยุด (ฝน/ลม)" },
+            { kanji: "止む", hiragana: "やむ", thai: "หยุดฝน/ลม" },
             { kanji: "省く", hiragana: "はぶく", thai: "ตัดออก/ลด" },
             { kanji: "沈む", hiragana: "しずむ", thai: "จม/ตกลง" },
             { kanji: "誤る", hiragana: "あやまる", thai: "ผิดพลาด" },
@@ -411,7 +518,7 @@
             { kanji: "磨く", hiragana: "みがく", thai: "ขัด/แปรง" },
             { kanji: "描く", hiragana: "えがく", thai: "วาดภาพ/พรรณนา" },
             { kanji: "望む", hiragana: "のぞむ", thai: "ปรารถนา" },
-            { kanji: "当たる", hiragana: "あたる", thai: "ชน/ถูก (เป้า)" },
+            { kanji: "当たる", hiragana: "あたる", thai: "ชน/ถูกเป้า" },
             { kanji: "歩き出す", hiragana: "あるきだす", thai: "เริ่มเดิน" },
             { kanji: "言い出す", hiragana: "いいだす", thai: "เริ่มพูด/พูดออกมา" },
             { kanji: "見上げる", hiragana: "みあげる", thai: "มองขึ้นไป" },
@@ -1124,7 +1231,162 @@
             { kanji: "風", hiragana: "かぜ", thai: "ลม" },
             { kanji: "曇り", hiragana: "くもり", thai: "มีเมฆ" },
             { kanji: "晴れ", hiragana: "はれ", thai: "ท้องฟ้าแจ่มใส" },
-
+            { kanji: "入口", hiragana: "いりぐち", thai: "ทางเข้า" },
+            { kanji: "出口", hiragana: "でぐち", thai: "ทางออก" },
+            { kanji: "左", hiragana: "ひだり", thai: "ซ้าย" },
+            { kanji: "右", hiragana: "みぎ", thai: "ขวา" },
+            { kanji: "駅", hiragana: "えき", thai: "สถานีรถไฟ" },
+            { kanji: "病院", hiragana: "びょういん", thai: "โรงพยาบาล" },
+            { kanji: "図書館", hiragana: "としょかん", thai: "ห้องสมุด" },
+            { kanji: "学校", hiragana: "がっこう", thai: "โรงเรียน" },
+            { kanji: "郵便局", hiragana: "ゆうびんきょく", thai: "ที่ทำการไปรษณีย์" },
+            { kanji: "銀行", hiragana: "ぎんこう", thai: "ธนาคาร" },
+            { kanji: "教室", hiragana: "きょうしつ", thai: "ห้องเรียน" },
+            { kanji: "部屋", hiragana: "へや", thai: "ห้อง" },
+            { kanji: "台所", hiragana: "だいどころ", thai: "ห้องครัว" },
+            { kanji: "風呂", hiragana: "ふろ", thai: "อ่างอาบน้ำ" },
+            { kanji: "店", hiragana: "みせ", thai: "ร้านค้า" },
+            { kanji: "会社", hiragana: "かいしゃ", thai: "บริษัท" },
+            { kanji: "仕事", hiragana: "しごと", thai: "งาน" },
+            { kanji: "薬", hiragana: "くすり", thai: "ยา" },
+            { kanji: "荷物", hiragana: "にもつ", thai: "สัมภาระ" },
+            { kanji: "教科書", hiragana: "きょうかしょ", thai: "ตำราเรียน" },
+            { kanji: "携帯", hiragana: "けいたい", thai: "โทรศัพท์มือถือ" },
+            { kanji: "傘", hiragana: "かさ", thai: "ร่ม" },
+            { kanji: "靴", hiragana: "くつ", thai: "รองเท้า" },
+            { kanji: "帽子", hiragana: "ぼうし", thai: "หมวก" },
+            { kanji: "天気", hiragana: "てんき", thai: "สภาพอากาศ" },
+            { kanji: "雨", hiragana: "あめ", thai: "ฝน" },
+            { kanji: "雪", hiragana: "ゆき", thai: "หิมะ" },
+            { kanji: "風", hiragana: "かぜ", thai: "ลม" },
+            { kanji: "晴れ", hiragana: "はれ", thai: "ท้องฟ้าแจ่มใส" },
+            { kanji: "曇り", hiragana: "くもり", thai: "เมฆครึ้ม" },
+            { kanji: "冬", hiragana: "ふゆ", thai: "ฤดูหนาว" },
+            { kanji: "春", hiragana: "はる", thai: "ฤดูใบไม้ผลิ" },
+            { kanji: "夏", hiragana: "なつ", thai: "ฤดูร้อน" },
+            { kanji: "秋", hiragana: "あき", thai: "ฤดูใบไม้ร่วง" },
+            { kanji: "旅行", hiragana: "りょこう", thai: "การท่องเที่ยว" },
+            { kanji: "食べ物", hiragana: "たべもの", thai: "อาหาร" },
+            { kanji: "飲み物", hiragana: "のみもの", thai: "เครื่องดื่ม" },
+            { kanji: "果物", hiragana: "くだもの", thai: "ผลไม้" },
+            { kanji: "野菜", hiragana: "やさい", thai: "ผัก" },
+            { kanji: "動物", hiragana: "どうぶつ", thai: "สัตว์" },
+            { kanji: "鳥", hiragana: "とり", thai: "นก" },
+            { kanji: "魚", hiragana: "さかな", thai: "ปลา" },
+            { kanji: "犬", hiragana: "いぬ", thai: "สุนัข" },
+            { kanji: "猫", hiragana: "ねこ", thai: "แมว" },
+            { kanji: "馬", hiragana: "うま", thai: "ม้า" },
+            { kanji: "牛", hiragana: "うし", thai: "วัว" },
+            { kanji: "山", hiragana: "やま", thai: "ภูเขา" },
+            { kanji: "川", hiragana: "かわ", thai: "แม่น้ำ" },
+            { kanji: "森", hiragana: "もり", thai: "ป่า" },
+            { kanji: "花", hiragana: "はな", thai: "ดอกไม้" },
+            { kanji: "草", hiragana: "くさ", thai: "หญ้า" },
+            { kanji: "海", hiragana: "うみ", thai: "ทะเล" },
+            { kanji: "湖", hiragana: "みずうみ", thai: "ทะเลสาบ" },
+            { kanji: "島", hiragana: "しま", thai: "เกาะ" },
+            { kanji: "空", hiragana: "そら", thai: "ท้องฟ้า" },
+            { kanji: "星", hiragana: "ほし", thai: "ดวงดาว" },
+            { kanji: "月", hiragana: "つき", thai: "พระจันทร์" },
+            { kanji: "太陽", hiragana: "たいよう", thai: "พระอาทิตย์" },
+            { kanji: "火", hiragana: "ひ", thai: "ไฟ" },
+            { kanji: "水", hiragana: "みず", thai: "น้ำ" },
+            { kanji: "土", hiragana: "つち", thai: "ดิน" },
+            { kanji: "風景", hiragana: "ふうけい", thai: "ทิวทัศน์" },
+            { kanji: "車", hiragana: "くるま", thai: "รถ" },
+            { kanji: "自転車", hiragana: "じてんしゃ", thai: "จักรยาน" },
+            { kanji: "飛行機", hiragana: "ひこうき", thai: "เครื่องบิน" },
+            { kanji: "船", hiragana: "ふね", thai: "เรือ" },
+            { kanji: "道", hiragana: "みち", thai: "ถนน" },
+            { kanji: "橋", hiragana: "はし", thai: "สะพาน" },
+            { kanji: "建物", hiragana: "たてもの", thai: "อาคาร" },
+            { kanji: "屋根", hiragana: "やね", thai: "หลังคา" },
+            { kanji: "壁", hiragana: "かべ", thai: "กำแพง" },
+            { kanji: "窓", hiragana: "まど", thai: "หน้าต่าง" },
+            { kanji: "扉", hiragana: "とびら", thai: "ประตู" },
+            { kanji: "時計", hiragana: "とけい", thai: "นาฬิกา" },
+            { kanji: "椅子", hiragana: "いす", thai: "เก้าอี้" },
+            { kanji: "机", hiragana: "つくえ", thai: "โต๊ะ" },
+            { kanji: "本棚", hiragana: "ほんだな", thai: "ชั้นวางหนังสือ" },
+            { kanji: "畳", hiragana: "たたみ", thai: "เสื่อทาทามิ" },
+            { kanji: "鍵", hiragana: "かぎ", thai: "กุญแจ" },
+            { kanji: "紙", hiragana: "かみ", thai: "กระดาษ" },
+            { kanji: "鉛筆", hiragana: "えんぴつ", thai: "ดินสอ" },
+            { kanji: "消しゴム", hiragana: "けしごむ", thai: "ยางลบ" },
+            { kanji: "鞄", hiragana: "かばん", thai: "กระเป๋า" },
+            { kanji: "写真", hiragana: "しゃしん", thai: "รูปถ่าย" },
+            { kanji: "鏡", hiragana: "かがみ", thai: "กระจก" },
+            { kanji: "図書館", hiragana: "としょかん", thai: "ห้องสมุด" },
+            { kanji: "食堂", hiragana: "しょくどう", thai: "โรงอาหาร" },
+            { kanji: "教室", hiragana: "きょうしつ", thai: "ห้องเรียน" },
+            { kanji: "会社", hiragana: "かいしゃ", thai: "บริษัท" },
+            { kanji: "工場", hiragana: "こうじょう", thai: "โรงงาน" },
+            { kanji: "市場", hiragana: "いちば", thai: "ตลาด" },
+            { kanji: "病院", hiragana: "びょういん", thai: "โรงพยาบาล" },
+            { kanji: "薬局", hiragana: "やっきょく", thai: "ร้านขายยา" },
+            { kanji: "郵便局", hiragana: "ゆうびんきょく", thai: "ที่ทำการไปรษณีย์" },
+            { kanji: "銀行", hiragana: "ぎんこう", thai: "ธนาคาร" },
+            { kanji: "駅", hiragana: "えき", thai: "สถานีรถไฟ" },
+            { kanji: "空港", hiragana: "くうこう", thai: "สนามบิน" },
+            { kanji: "交番", hiragana: "こうばん", thai: "ป้อมตำรวจ" },
+            { kanji: "信号", hiragana: "しんごう", thai: "สัญญาณไฟจราจร" },
+            { kanji: "地図", hiragana: "ちず", thai: "แผนที่" },
+            { kanji: "旅行", hiragana: "りょこう", thai: "การท่องเที่ยว" },
+            { kanji: "観光", hiragana: "かんこう", thai: "การเที่ยวชมสถานที่" },
+            { kanji: "切符", hiragana: "きっぷ", thai: "ตั๋ว" },
+            { kanji: "荷物", hiragana: "にもつ", thai: "สัมภาระ" },
+            { kanji: "会話", hiragana: "かいわ", thai: "การสนทนา" },
+            { kanji: "勉強", hiragana: "べんきょう", thai: "การเรียน" },
+            { kanji: "試験", hiragana: "しけん", thai: "การสอบ" },
+            { kanji: "成績", hiragana: "せいせき", thai: "ผลการเรียน" },
+            { kanji: "教科書", hiragana: "きょうかしょ", thai: "หนังสือเรียน" },
+            { kanji: "宿題", hiragana: "しゅくだい", thai: "การบ้าน" },
+            { kanji: "質問", hiragana: "しつもん", thai: "คำถาม" },
+            { kanji: "答え", hiragana: "こたえ", thai: "คำตอบ" },
+            { kanji: "説明", hiragana: "せつめい", thai: "การอธิบาย" },
+            { kanji: "新聞", hiragana: "しんぶん", thai: "หนังสือพิมพ์" },
+            { kanji: "雑誌", hiragana: "ざっし", thai: "นิตยสาร" },
+            { kanji: "音楽", hiragana: "おんがく", thai: "ดนตรี" },
+            { kanji: "映画", hiragana: "えいが", thai: "ภาพยนตร์" },
+            { kanji: "写真館", hiragana: "しゃしんかん", thai: "ร้านถ่ายรูป" },
+            { kanji: "公衆電話", hiragana: "こうしゅうでんわ", thai: "โทรศัพท์สาธารณะ" },
+            { kanji: "美術館", hiragana: "びじゅつかん", thai: "พิพิธภัณฑ์ศิลปะ" },
+            { kanji: "動物園", hiragana: "どうぶつえん", thai: "สวนสัตว์" },
+            { kanji: "植物園", hiragana: "しょくぶつえん", thai: "สวนพฤกษศาสตร์" },
+            { kanji: "博物館", hiragana: "はくぶつかん", thai: "พิพิธภัณฑ์" },
+            { kanji: "神社", hiragana: "じんじゃ", thai: "ศาลเจ้า" },
+            { kanji: "寺", hiragana: "てら", thai: "วัด" },
+            { kanji: "ホテル", hiragana: "ほてる", thai: "โรงแรม" },
+            { kanji: "温泉", hiragana: "おんせん", thai: "น้ำพุร้อน" },
+            { kanji: "祭り", hiragana: "まつり", thai: "เทศกาล" },
+            { kanji: "学校", hiragana: "がっこう", thai: "โรงเรียน" },
+            { kanji: "大学", hiragana: "だいがく", thai: "มหาวิทยาลัย" },
+            { kanji: "中学校", hiragana: "ちゅうがっこう", thai: "โรงเรียนมัธยมต้น" },
+            { kanji: "高校", hiragana: "こうこう", thai: "โรงเรียนมัธยมปลาย" },
+            { kanji: "授業", hiragana: "じゅぎょう", thai: "คาบเรียน" },
+            { kanji: "時間", hiragana: "じかん", thai: "เวลา" },
+            { kanji: "朝", hiragana: "あさ", thai: "เช้า" },
+            { kanji: "昼", hiragana: "ひる", thai: "กลางวัน" },
+            { kanji: "夕方", hiragana: "ゆうがた", thai: "เย็น" },
+            { kanji: "夜", hiragana: "よる", thai: "กลางคืน" },
+            { kanji: "週末", hiragana: "しゅうまつ", thai: "วันหยุดสุดสัปดาห์" },
+            { kanji: "休日", hiragana: "きゅうじつ", thai: "วันหยุด" },
+            { kanji: "祭日", hiragana: "さいじつ", thai: "วันเทศกาล" },
+            { kanji: "趣味", hiragana: "しゅみ", thai: "งานอดิเรก" },
+            { kanji: "運動", hiragana: "うんどう", thai: "การออกกำลังกาย" },
+            { kanji: "健康", hiragana: "けんこう", thai: "สุขภาพ" },
+            { kanji: "病気", hiragana: "びょうき", thai: "โรค" },
+            { kanji: "医者", hiragana: "いしゃ", thai: "หมอ" },
+            { kanji: "看護師", hiragana: "かんごし", thai: "พยาบาล" },
+            { kanji: "薬", hiragana: "くすり", thai: "ยา" },
+            { kanji: "家族", hiragana: "かぞく", thai: "ครอบครัว" },
+            { kanji: "親", hiragana: "おや", thai: "พ่อแม่" },
+            { kanji: "兄弟", hiragana: "きょうだい", thai: "พี่น้อง" },
+            { kanji: "祖父", hiragana: "そふ", thai: "ปู่/ตา" },
+            { kanji: "祖母", hiragana: "そぼ", thai: "ย่า/ยาย" },
+            { kanji: "友達", hiragana: "ともだち", thai: "เพื่อน" },
+            { kanji: "隣", hiragana: "となり", thai: "ข้างๆ" },
+            { kanji: "近所", hiragana: "きんじょ", thai: "เพื่อนบ้าน" },
 
 
         ];
@@ -1214,5 +1476,8 @@
 
         startGame();
     </script>
+
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
 </body>
 </html>
